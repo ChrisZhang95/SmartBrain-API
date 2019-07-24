@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
+
 const database = {
   users: [
     {
@@ -23,15 +25,18 @@ const database = {
   ]
 }
 
+// Middlewares
 app.use(bodyParser.json());
+app.use(cors());
 
+// Routes
 app.get('/', (req, res) => {
   res.send(database.users);
 })
 
 app.post('/signin', (req, res) => {
   if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
-    res.json('success')
+    res.json(database.users[0]);
   } else {
     res.status(400).json('error signing in')
   }
@@ -69,7 +74,7 @@ app.get('/profile/:id', (req, res) => {
   }
 })
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
   const { id } = req.body;
   let found = false;
   database.users.forEach(user => {
