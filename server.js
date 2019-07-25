@@ -24,11 +24,14 @@ app.use(cors());
 
 // Routes
 app.get('/', (req, res) => {})
-app.post('/signin', (req, res) => {signin.handleSignIn(req, res, db, bcrypt)})
-app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})
+app.post('/signin', signin.handleSignIn(db, bcrypt)) //syntax 1
+app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)}) //syntax 2
 app.get('/profile/:id', (req, res) => {profile.handleProfile(req, res, db)})
 app.put('/image', (req, res) => {image.handleImage(req, res, db)})
+app.post('/imageurl', (req, res) => {image.handleApiCall  (req, res)})
 
-app.listen(3000, () => {
-  console.log('app is runnning on port 3000');
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`app is runnning on port ${PORT}`);
 });

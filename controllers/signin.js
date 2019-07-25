@@ -1,4 +1,8 @@
-const handleSignIn = (req, res, db, bcrypt) => {
+const handleSignIn = (db, bcrypt) => (req, res) => {
+    const {email, password} = req.body;
+    if (!email || !password) {
+      return res.status(400).json('all fields have to be filled');
+    }
     db.select('email', 'hash').from('login')
       .where('email', '=', req.body.email)
       .then(data => {
