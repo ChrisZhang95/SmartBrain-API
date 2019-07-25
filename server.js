@@ -31,6 +31,6 @@ app.put('/image', (req, res) => {image.handleImage(req, res, db)})
 app.post('/imageurl', (req, res) => {image.handleApiCall  (req, res)})
 
 
-app.listen(preocess.env.PORT || 3000, () => {
-  console.log(`app is runnning on port ${preocess.env.PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`app is runnning on port ${process.env.PORT}`);
 });
